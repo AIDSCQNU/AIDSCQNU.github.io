@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html style="height: 100%">
+   <head>
+       <meta charset="utf-8">
+   </head>
+   <body style="height: 100%; margin: 0">
+     <div id="container2" style="height: 100%"></div><!--表2-->
+       <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/echarts.min.js"></script>
+       <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts-gl/echarts-gl.min.js"></script>
+       <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts-stat/ecStat.min.js"></script>
+       <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/extension/dataTool.min.js"></script>
+       <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/map/js/china.js"></script>
+       <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/map/js/world.js"></script>
+       <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=ZUONbpqGBsYGXNIYHicvbAbM"></script>
+       <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/extension/bmap.min.js"></script>
+       <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/simplex.js"></script>
+       <script type="text/javascript">
+var dom = document.getElementById("container2");
+var myChart = echarts.init(dom);
+var app = {};
+option = null;
+var dataXH= [
+    [2007,44],
+    [2008,5],
+    [2009,25],
+    [2010,31],
+    [2011,43],
+    [2012,389],
+    [2013,166],
+    [2014,387],
+    [2015,725],
+    [2016,720],
+    [2017,512],
+];
+
+var dataZX = [
+    [2007,46],
+    [2008,464],
+    [2009,416],
+    [2010,422],
+    [2011,517],
+    [2012,527],
+    [2013,607],
+    [2014,585],
+    [2015,407],
+    [2016,200],
+    [2017,143],
+];
+
+var dataRB = [
+    [2007,18],
+    [2008,15],
+    [2009,64],
+    [2010,79],
+    [2011,111],
+    [2012,170],
+    [2013,178],
+    [2014,283],
+    [2015,251],
+    [2016,225],
+    [2017,100],
+];
+
+var dataHQ= [
+    [2007,1],
+    [2008,179],
+    [2009,118],
+    [2010,138],
+    [2011,184],
+    [2012,460],
+    [2013,196],
+    [2014,466],
+    [2015,629],
+    [2016,480],
+    [2017,303],
+];
+
+
+var dataXL = [
+   [1,2007,122],
+    [2,2008,90],
+    [2009,141],
+    [2010,145],
+    [2011,227],
+    [2012,160],
+    [2013,150],
+    [2014,619],
+    [2015,466],
+    [2016,574],
+    [2017,454],
+];
+
+var dataSH = [
+   [2007,161],
+    [2008,90],
+    [2009,98],
+    [2010,127],
+    [2011,148],
+    [2012,149],
+    [2013,90],
+    [2014,483],
+    [2015,525],
+    [2016,620],
+    [2017,756],
+];
+
+
+
+var schema = [
+    {name: 'date', index: 0, text: '年份'},
+    {name: '媒体关注指数', index: 1, text: '媒体关注指数'},
+
+];
+
+
+var itemStyle = {
+    normal: {
+        opacity: 0.8,
+        shadowBlur: 10,
+        shadowOffsetX: 0,
+        shadowOffsetY: 0,
+        shadowColor: 'rgba(0, 0, 0, 0.5)'
+    }
+};
+
+option = {
+    backgroundColor: '#404a59',
+    color: [
+        '#dd4444', '#fec42c', '#80F1BE','#EE7AE9','#BBFFFF','#CD919E'
+    ],
+    legend: {
+        y: 'top',
+        data: ['新华社', '中新社', '中国日报', '人民日报', '环球时报','新浪网', '搜狐网'],
+        textStyle: {
+            color: '#fff',
+            fontSize: 16
+        }
+    },
+    grid: {
+        x: '10%',
+        x2: 150,
+        y: '18%',
+        y2: '10%'
+    },
+    tooltip: {
+        padding: 10,
+        backgroundColor: '#222',
+        borderColor: '#777',
+        borderWidth: 1,
+        formatter: function (obj) {
+            var value = obj.value;
+            return '<div style="border-bottom: 1px solid rgba(255,255,255,.3); font-size: 18px;padding-bottom: 7px;margin-bottom: 7px">'
+                + obj.seriesName 
+                + '</div>'
+                + schema[0].text + '：' + value[0] + '<br>'
+                + schema[1].text + '：' + value[1] + '<br>'
+        }
+    },
+  xAxis: {
+                type: 'value',
+                max: 2018,
+                min: 2006,
+                nameGap: 50,
+                nameLocation: 'right',
+                nameTextStyle: {
+                    fontSize: 15
+                },
+                splitLine: {
+                    show: false
+                },
+                axisLine: {
+                    lineStyle: {
+                        color: '#ccc'
+                    }
+                },
+                axisLabel: {
+                    formatter: '{value}年 '
+                }
+            },
+            yAxis: {
+                type: 'value',
+                name: '媒体关注指数',
+                max: 800,
+                nameTextStyle: {
+                    color: '#ccc',
+                    fontSize: 18
+                },
+                axisLine: {
+                    lineStyle: {
+                        color: '#ccc'
+                    }
+                },
+                splitLine: {
+                    show: false
+                },
+                axisLabel: {
+                    formatter: '{value}次 '
+                }
+            },
+    visualMap: [
+        {
+            left: 'right',
+            top: '20%',
+            dimension: 1,
+            min: 0,
+            max: 800,
+            itemWidth: 30,
+            itemHeight: 120,
+            calculable: true,
+            precision: 0.1,
+            text: ['圆形大小：媒体关注指数'],
+            textGap: 30,
+            textStyle: {
+                color: '#fff'
+            },
+            inRange: {
+                symbolSize: [10, 70]
+            },
+            outOfRange: {
+                symbolSize: [10, 70],
+                color: ['rgba(255,255,255,.2)']
+            },
+            controller: {
+                inRange: {
+                    color: ['#c23531']
+                },
+                outOfRange: {
+                    color: ['#444']
+                }
+            }
+        },
+
+    ],
+series: [
+        {
+            name: '新华社',  
+            type: 'scatter',
+            itemStyle: itemStyle,
+            data: dataXH
+        },
+        {
+            name: '中新社',
+            type: 'scatter',
+            itemStyle: itemStyle,
+            data: dataZX
+        },
+        {
+            name: '人民日报',
+            type: 'scatter',
+            itemStyle: itemStyle,
+            data: dataRB
+        },
+        {
+            name: '环球时报',
+            type: 'scatter',
+            itemStyle: itemStyle,
+            data: dataHQ
+        },
+        {
+            name: '新浪网',
+            type: 'scatter',
+            itemStyle: itemStyle,
+            data: dataXL
+        },
+        {
+            name: '搜狐网',
+            type: 'scatter',
+            itemStyle: itemStyle,
+            data: dataSH
+        }
+    
+    ]
+};
+;
+if (option && typeof option === "object") {
+    myChart.setOption(option, true);
+}
+       </script>
+   </body>
+</html>
